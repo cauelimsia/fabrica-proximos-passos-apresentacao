@@ -1,6 +1,6 @@
 # Fábrica de Matrículas · próximos passos
 
-Apresentação para o **Recanto da Criança** (Centro Educacional Recanto da Criança
+Apresentação para o **Recanto Interativo** (Centro Educacional Recanto da Criança
 Interativo, Manaus) depois do
 fechamento: as seis etapas, em quatro semanas, para a Fábrica de Matrículas entrar no ar
 na escola, e as três decisões que ficam do lado do Recanto.

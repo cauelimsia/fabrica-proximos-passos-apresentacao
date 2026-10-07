@@ -121,7 +121,7 @@ export function buildTimeline({ gsap, root, engine, tall }: BuildArgs) {
       const mark = row.querySelector<HTMLElement>('[data-a="tick"]');
       if (!dot || !mark) return;
       tl.fromTo(mark, { autoAlpha: 0, scale: 0.2 }, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(2.6)' }, t + k * each);
-      tl.fromTo(dot, { backgroundColor: 'rgba(12,42,71,0.1)' }, { backgroundColor: '#00a0e0', duration: 0.3 }, t + k * each);
+      tl.fromTo(dot, { backgroundColor: 'rgba(46,49,146,0.12)' }, { backgroundColor: '#3db83d', duration: 0.3 }, t + k * each);
     });
 
   // ------------------------------------------------------------ estações
@@ -208,7 +208,7 @@ export function buildTimeline({ gsap, root, engine, tall }: BuildArgs) {
     const t = TIMES.caminho;
     const mid = (STATIONS[0].pos[0] + STATIONS[STEPS - 1].pos[0]) / 2;
     const A = S(shot([mid - 1500, -430, 0], 12400, 3600, -30, 8), shot([STATIONS[0].pos[0] + 1000, -220, 0], 4500, 7200, -12, 6));
-    const B = S(shot([mid + 700, -320, 0], 11600, 4000, 18, 6), shot([STATIONS[STEPS - 1].pos[0] - 1000, 240, 0], 4500, 7200, 12, 6));
+    const B = S(shot([mid + 1500, -320, 0], 12600, 4000, 18, 6), shot([STATIONS[STEPS - 1].pos[0] - 1000, 240, 0], 4500, 7200, 12, 6));
 
     tl.to(fx, { mark: 0, duration: 0.8, ease: 'power2.in' }, t + 0.1);
     tl.to(fx, { markYaw: 70, markScale: 0.7, duration: 0.9, ease: 'power2.in' }, t + 0.1);
@@ -311,7 +311,7 @@ export function buildTimeline({ gsap, root, engine, tall }: BuildArgs) {
     gsap.set(pills.map((p) => p.querySelector('svg')), { autoAlpha: 0, scale: 0.2 });
     pills.forEach((p, k) => {
       const at = t + 1.7 + k * 0.3;
-      tl.to(p, { backgroundColor: '#00a0e0', color: '#ffffff', duration: 0.3 }, at);
+      tl.to(p, { backgroundColor: '#3db83d', color: '#ffffff', duration: 0.3 }, at);
       tl.to(p, { z: 26, duration: 0.2, ease: 'power2.out' }, at);
       tl.to(p, { z: 0, duration: 0.5, ease: 'power2.inOut' }, at + 0.2);
       tl.to(p.querySelector('svg'), { autoAlpha: 1, scale: 1, duration: 0.35, ease: 'back.out(2.6)' }, at);
@@ -321,7 +321,7 @@ export function buildTimeline({ gsap, root, engine, tall }: BuildArgs) {
     land($c(id, 'b', 'card'), t + 4.2, 1.7);
     const mods = $(id, 'mod');
     pop(mods, t + 4.8, 0.13);
-    mods.forEach((m, k) => tl.to(m.querySelector('i'), { backgroundColor: '#00a0e0', boxShadow: '0 0 0 4px rgba(0,160,224,0.2)', duration: 0.3 }, t + 5.1 + k * 0.13));
+    mods.forEach((m, k) => tl.to(m.querySelector('i'), { backgroundColor: '#3db83d', boxShadow: '0 0 0 4px rgba(61,184,61,0.24)', duration: 0.3 }, t + 5.1 + k * 0.13));
     show($(id, 'rule'), t + 6.5, { x: -14, y: 0 }, { stagger: 0.3, duration: 0.5 });
 
     copyIn('s3', t + 0.5);
@@ -339,7 +339,7 @@ export function buildTimeline({ gsap, root, engine, tall }: BuildArgs) {
     gsap.set($(id, 'ok'), { autoAlpha: 0, x: 10 });
     rows.forEach((row, k) => {
       const at = t + 1.6 + k * 0.42;
-      tl.to(row.querySelector('[data-a="sw"]'), { backgroundColor: '#00a0e0', duration: 0.25 }, at);
+      tl.to(row.querySelector('[data-a="sw"]'), { backgroundColor: '#3db83d', duration: 0.25 }, at);
       tl.to(row.querySelector('[data-a="knob"]'), { x: 24, duration: 0.3, ease: 'back.out(2)' }, at);
       tl.to(row.querySelector('[data-a="ok"]'), { autoAlpha: 1, x: 0, duration: 0.3 }, at + 0.05);
     });
@@ -350,7 +350,7 @@ export function buildTimeline({ gsap, root, engine, tall }: BuildArgs) {
     tl.fromTo($(id, 'ans'), { autoAlpha: 0, x: 18, scale: 0.94, transformOrigin: '100% 100%' }, { autoAlpha: 1, x: 0, scale: 1, duration: 0.5, ease: 'back.out(1.5)' }, t + 5.8);
     show($(id, 'verdict'), t + 6.5);
     const yes = $(id, 'yes')[0];
-    tl.to(yes, { backgroundColor: '#00a0e0', borderColor: '#00a0e0', color: '#ffffff', duration: 0.25 }, t + 7.1);
+    tl.to(yes, { backgroundColor: '#3db83d', borderColor: '#3db83d', color: '#ffffff', duration: 0.25 }, t + 7.1);
     tl.fromTo(yes, { scale: 1 }, { scale: 0.93, duration: 0.09, repeat: 1, yoyo: true, immediateRender: false }, t + 7.1);
     tl.fromTo($(id, 'seal'), { autoAlpha: 0, scale: 2.6, rotation: -24, z: 320 }, { autoAlpha: 1, scale: 1, rotation: -7, z: 60, duration: 0.5, ease: 'power4.in' }, t + 7.7);
     tl.to($(id, 'seal'), { z: 34, duration: 1.2, ease: 'elastic.out(1, 0.5)' }, t + 8.2);
@@ -389,7 +389,7 @@ export function buildTimeline({ gsap, root, engine, tall }: BuildArgs) {
     const stepY = stages[1].offsetTop - stages[0].offsetTop;
     tl.fromTo(lead, { autoAlpha: 0, scale: 0.6, z: 80 }, { autoAlpha: 1, scale: 1, z: 22, duration: 0.5, ease: 'back.out(1.8)' }, t + S(1.6, 4.4));
     tl.to(lead, { y: stepY, duration: 0.8, ease: 'power3.inOut' }, t + 5.0);
-    tl.to(stages[1], { color: '#0089c4', duration: 0.3 }, t + 5.4);
+    tl.to(stages[1], { color: '#2e3192', duration: 0.3 }, t + 5.4);
 
     msgIn('a2', t + 7.0);
     msgIn('s1', t + 8.0);

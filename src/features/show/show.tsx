@@ -43,7 +43,7 @@ function Words({ text }: { text: string }) {
 function Mark({ className }: { className?: string }) {
   return (
     <svg viewBox={MARK_VIEWBOX} className={className} aria-hidden="true">
-      <path d={MARK_PATH} fill="#2cb8f5" />
+      <path d={MARK_PATH} fill="#3db83d" />
     </svg>
   );
 }
@@ -110,7 +110,7 @@ export function Show() {
       const ids = CHAPTERS.map((c) => c.id);
 
       const onProgress = (time: number, progress: number) => {
-        if (barRef.current) barRef.current.style.transform = `scaleX(${progress.toFixed(4)})`;
+        if (barRef.current) barRef.current.style.clipPath = `inset(0 ${(100 - progress * 100).toFixed(2)}% 0 0)`;
         let id: ChapterId = 'fechado';
         for (const c of ids) if (time >= TIMES[c] - 0.05) id = c;
         if (id !== current) {
@@ -302,7 +302,7 @@ export function Show() {
           ))}
 
           <div className="sc-lockup" data-lockup="open">
-            <span className="sc-kicker">Recanto da Criança</span>
+            <span className="sc-kicker">Recanto Interativo</span>
             <h1>
               <Words text="Próximos" />
               <span className="sc-w">
@@ -323,7 +323,7 @@ export function Show() {
                 </span>
               </span>
             </h2>
-            <p>Recanto da Criança e Fábrica de Matrículas, no mesmo WhatsApp.</p>
+            <p>Recanto Interativo e Fábrica de Matrículas, no mesmo WhatsApp.</p>
             <div className="sc-cta">
               <a href={CONTACT.href} target="_blank" rel="noopener noreferrer" className="sc-btn sc-btn--solid sc-btn--lg">
                 <MessageCircle /> Falar com a equipe · {CONTACT.label}
@@ -382,7 +382,7 @@ export function Show() {
         </div>
 
         <div className="sc-sr">
-          <h1>Próximos passos da Fábrica de Matrículas no Recanto da Criança</h1>
+          <h1>Próximos passos da Fábrica de Matrículas no Recanto Interativo</h1>
           <ol>
             {STEP_LIST.map((s) => (
               <li key={s.n}>

@@ -250,8 +250,8 @@ export function createEngine(opts: EngineOptions) {
       dust[i3 + 2] = front ? 500 + rand() * 1000 : -3200 + rand() * 2700;
 
       // logo do Recanto: 82% em cima de um pixel com tinta (com a cor dele), o resto vira halo
-      let r = 0.36;
-      let g = 0.78;
+      let r = 0.55;
+      let g = 0.57;
       let b = 1.0;
       if (solid.length && rand() < 0.82) {
         const p = solid[Math.floor(rand() * solid.length)];
@@ -357,7 +357,7 @@ export function createEngine(opts: EngineOptions) {
           vAlpha *= 1.0 - smoothstep(9000.0, 52000.0, d);
           vAlpha = mix(vAlpha, max(vAlpha, 0.8 + 0.2 * uPulse), first * uSignal);
           vTone = aRnd.y;
-          vAcc = aRnd.w;
+          vAcc = fract(aRnd.w * 37.13 + aRnd.y * 11.7);
           vCol = aCol;
         }`,
       fragmentShader: /* glsl */ `
@@ -366,14 +366,22 @@ export function createEngine(opts: EngineOptions) {
         varying float vTone;
         varying float vAcc;
         varying vec3 vCol;
+        vec3 faixa(float k) {
+          if (k < 1.0) return vec3(0.50, 0.82, 0.16);
+          if (k < 2.0) return vec3(0.96, 0.26, 0.14);
+          if (k < 3.0) return vec3(0.33, 0.78, 0.96);
+          if (k < 4.0) return vec3(0.26, 0.42, 0.98);
+          if (k < 5.0) return vec3(0.96, 0.20, 0.15);
+          if (k < 6.0) return vec3(0.26, 0.76, 0.26);
+          return vec3(0.99, 0.82, 0.06);
+        }
         void main() {
           float r = length(gl_PointCoord - 0.5);
           float a = smoothstep(0.5, 0.0, r);
           a = a * a * (0.55 + 0.45 * smoothstep(0.22, 0.0, r));
-          // azul do Recanto, com uma pitada do amarelo e do vermelho da marca
-          vec3 col = mix(vec3(0.0, 0.56, 0.96), vec3(0.62, 0.86, 1.0), smoothstep(0.35, 1.0, vTone));
-          col = mix(col, vec3(1.0, 0.86, 0.1), step(0.945, vAcc));
-          col = mix(col, vec3(1.0, 0.22, 0.2), step(vAcc, 0.035));
+          // céu índigo da logo, com confete nas sete cores da faixa
+          vec3 col = mix(vec3(0.42, 0.45, 1.0), vec3(0.80, 0.82, 1.0), smoothstep(0.35, 1.0, vTone));
+          col = mix(col, faixa(floor(vAcc / 0.4 * 7.0)), step(vAcc, 0.4));
           col = mix(col, vec3(1.0), smoothstep(0.18, 0.0, r) * 0.5);
           col = mix(col, vCol * 0.92 + 0.04, uTint);
           gl_FragColor = vec4(col * a * vAlpha, a * vAlpha);
@@ -396,7 +404,7 @@ export function createEngine(opts: EngineOptions) {
       envScene.add(mesh);
       disposables.push(g, m);
     };
-    envScene.background = new THREE.Color(0x03101f);
+    envScene.background = new THREE.Color(0x06061c);
     const domeGeo = new THREE.SphereGeometry(40, 32, 16);
     const domeMat = new THREE.ShaderMaterial({
       side: THREE.BackSide,
@@ -405,12 +413,12 @@ export function createEngine(opts: EngineOptions) {
         varying vec3 vP;
         void main(){
           float up = vP.y * 0.5 + 0.5;
-          vec3 low = vec3(0.01, 0.04, 0.09);
-          vec3 mid = vec3(0.04, 0.3, 0.62);
-          vec3 top = vec3(1.5, 1.9, 2.2);
+          vec3 low = vec3(0.02, 0.02, 0.09);
+          vec3 mid = vec3(0.14, 0.15, 0.58);
+          vec3 top = vec3(1.7, 1.7, 2.2);
           vec3 c = mix(low, mid, smoothstep(0.0, 0.55, up));
           c = mix(c, top, smoothstep(0.55, 1.0, up));
-          c += vec3(0.6, 1.6, 2.6) * pow(max(dot(vP, normalize(vec3(-0.75, 0.25, 0.6))), 0.0), 6.0);
+          c += vec3(1.0, 1.1, 2.6) * pow(max(dot(vP, normalize(vec3(-0.75, 0.25, 0.6))), 0.0), 6.0);
           c += vec3(2.2, 1.7, 0.4) * pow(max(dot(vP, normalize(vec3(0.85, -0.1, 0.5))), 0.0), 12.0);
           gl_FragColor = vec4(c, 1.0);
         }`,
@@ -418,9 +426,9 @@ export function createEngine(opts: EngineOptions) {
     envScene.add(new THREE.Mesh(domeGeo, domeMat));
     disposables.push(domeGeo, domeMat);
     strip(14, 5, new THREE.Color(7, 7.6, 8.5), [0, 9, 3]);
-    strip(3, 12, new THREE.Color(1.4, 4.6, 9), [-10, 1, 2]);
+    strip(3, 12, new THREE.Color(2.6, 2.8, 9), [-10, 1, 2]);
     strip(2.2, 10, new THREE.Color(5, 6.4, 9), [10, 2, -2]);
-    strip(8, 1.2, new THREE.Color(0.8, 2.8, 6), [0, -8, 4]);
+    strip(8, 1.2, new THREE.Color(1.8, 2.0, 6), [0, -8, 4]);
     strip(5, 5, new THREE.Color(1.0, 1.6, 2.4), [0, 0, 12]);
     const pmrem = new THREE.PMREMGenerator(renderer);
     const env = pmrem.fromScene(envScene, 0.035);
@@ -442,25 +450,25 @@ export function createEngine(opts: EngineOptions) {
     });
     lgeo.translate(0, 0, -48);
     const face = new THREE.MeshPhysicalMaterial({
-      color: 0x0090dc,
-      metalness: 0.5,
-      roughness: 0.3,
-      clearcoat: 1,
-      clearcoatRoughness: 0.1,
-      envMapIntensity: 0.75,
-      emissive: 0x005fb4,
-      emissiveIntensity: 0.5,
+      color: 0x27a82b,
+      metalness: 0.2,
+      roughness: 0.36,
+      clearcoat: 0.7,
+      clearcoatRoughness: 0.14,
+      envMapIntensity: 0.42,
+      emissive: 0x168a1c,
+      emissiveIntensity: 0.62,
       transparent: true,
       opacity: 0,
     });
     const side = new THREE.MeshPhysicalMaterial({
-      color: 0x5cc8ff,
-      metalness: 0.6,
-      roughness: 0.2,
+      color: 0x6fd84f,
+      metalness: 0.4,
+      roughness: 0.24,
       clearcoat: 1,
       clearcoatRoughness: 0.06,
-      envMapIntensity: 1.25,
-      emissive: 0x0a9be0,
+      envMapIntensity: 0.8,
+      emissive: 0x3db83d,
       emissiveIntensity: 0.3,
       transparent: true,
       opacity: 0,
@@ -475,9 +483,9 @@ export function createEngine(opts: EngineOptions) {
 
     const key = new THREE.DirectionalLight(0xffffff, 2.4);
     key.position.set(-700, 900, 1300);
-    const rim = new THREE.DirectionalLight(0x9ddcff, 1.6);
+    const rim = new THREE.DirectionalLight(0xb9bcff, 1.6);
     rim.position.set(900, -200, -700);
-    scene.add(key, rim, new THREE.AmbientLight(0x2aa8ff, 0.35));
+    scene.add(key, rim, new THREE.AmbientLight(0x6a6ef0, 0.35));
 
     // ---- halo ---------------------------------------------------------------
     const ggeo = new THREE.PlaneGeometry(1, 1);
@@ -493,7 +501,7 @@ export function createEngine(opts: EngineOptions) {
         void main(){
           float r = length(vUv - 0.5) * 2.0;
           float a = pow(max(1.0 - r, 0.0), 2.6);
-          gl_FragColor = vec4(vec3(0.0, 0.46, 0.92) * a * uA, a * uA);
+          gl_FragColor = vec4(vec3(0.24, 0.26, 0.96) * a * uA, a * uA);
         }`,
     });
     glow = new THREE.Mesh(ggeo, glowMat);
@@ -522,7 +530,7 @@ export function createEngine(opts: EngineOptions) {
           float d = length(vW.xz - uC.xz);
           float fade = smoothstep(6200.0, 600.0, d);
           float a = l * fade * uA * 0.4;
-          gl_FragColor = vec4(vec3(0.1, 0.62, 1.0) * a, a);
+          gl_FragColor = vec4(vec3(0.42, 0.45, 1.0) * a, a);
         }`,
       blending: THREE.AdditiveBlending,
     });
@@ -537,13 +545,22 @@ export function createEngine(opts: EngineOptions) {
     // ---- trilho: o caminho desenhado em luz ---------------------------------
     const tgeo = new THREE.TubeGeometry(rail, low ? 420 : 900, 7, 8, false);
     railMat = new THREE.ShaderMaterial({
-      uniforms: { uDraw: { value: 0 }, uT: { value: 0 } },
+      uniforms: { uDraw: { value: 0 }, uT: { value: 0 }, uSeg: { value: RAIL.length - 1 } },
       transparent: true,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
       vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
       fragmentShader: /* glsl */ `
-        uniform float uDraw, uT; varying vec2 vUv;
+        uniform float uDraw, uT, uSeg; varying vec2 vUv;
+        vec3 faixa(float k) {
+          if (k < 1.0) return vec3(0.50, 0.82, 0.16);
+          if (k < 2.0) return vec3(0.96, 0.26, 0.14);
+          if (k < 3.0) return vec3(0.33, 0.78, 0.96);
+          if (k < 4.0) return vec3(0.26, 0.42, 0.98);
+          if (k < 5.0) return vec3(0.96, 0.20, 0.15);
+          if (k < 6.0) return vec3(0.26, 0.76, 0.26);
+          return vec3(0.99, 0.82, 0.06);
+        }
         void main(){
           float on = step(vUv.x, uDraw);
           float spark = 0.0;
@@ -552,8 +569,8 @@ export function createEngine(opts: EngineOptions) {
             spark += exp(-pow((vUv.x - run) * 260.0, 2.0));
           }
           float head = exp(-pow((vUv.x - uDraw) * 150.0, 2.0)) * smoothstep(0.0, 0.02, uDraw);
-          float a = on * (0.34 + spark * 0.85) * smoothstep(0.0, 0.01, uDraw) + head * 1.4 * step(vUv.x, uDraw + 0.004);
-          vec3 c = mix(vec3(0.1, 0.62, 1.0), vec3(1.0, 0.9, 0.3), clamp(head, 0.0, 1.0));
+          float a = on * (0.62 + spark * 0.7) * smoothstep(0.0, 0.01, uDraw) + head * 1.4 * step(vUv.x, uDraw + 0.004);
+          vec3 c = mix(faixa(mod(floor(vUv.x * uSeg), 7.0)), vec3(1.0), clamp(head + spark * 0.5, 0.0, 1.0));
           gl_FragColor = vec4(c * a, a);
         }`,
     });

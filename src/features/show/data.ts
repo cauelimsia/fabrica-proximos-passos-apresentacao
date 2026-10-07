@@ -112,5 +112,5 @@ export const DECISIONS = [
 // fecho ------------------------------------------------------------------------
 export const CONTACT = {
   label: '(92) 8553-2630',
-  href: 'https://wa.me/559285532630?text=' + encodeURIComponent('Olá! Vi os próximos passos da Fábrica de Matrículas no Recanto da Criança.'),
+  href: 'https://wa.me/559285532630?text=' + encodeURIComponent('Olá! Vi os próximos passos da Fábrica de Matrículas no Recanto Interativo.'),
 };

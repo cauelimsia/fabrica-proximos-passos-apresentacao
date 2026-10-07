@@ -44,7 +44,7 @@ function Tick() {
 /** 01 · reunião de início */
 export function StationKick() {
   return (
-    <section className="st">
+    <section className="st" data-step="1">
       <Head i={0} />
       <div className="st-body">
         <div className="st-col" data-col="a">
@@ -105,7 +105,7 @@ const MATERIAL_ICON: Record<string, React.ReactNode> = {
 export function StationMaterial() {
   const order = ['valores', 'turmas', 'contrato', 'calendario', 'conversas'];
   return (
-    <section className="st">
+    <section className="st" data-step="2">
       <Head i={1} />
       <div className="st-body st-body--docs">
         {order.map((id) => {
@@ -140,7 +140,7 @@ export function StationMaterial() {
 /** 03 · montagem do sistema */
 export function StationBuild() {
   return (
-    <section className="st">
+    <section className="st" data-step="3">
       <Head i={2} />
       <div className="st-body">
         <div className="st-col" data-col="a">
@@ -199,7 +199,7 @@ export function StationBuild() {
 /** 04 · aprovação da escola */
 export function StationApprove() {
   return (
-    <section className="st">
+    <section className="st" data-step="4">
       <Head i={3} />
       <div className="st-body">
         <div className="st-col" data-col="a">
@@ -255,15 +255,15 @@ export function StationApprove() {
 /** 05 · entrada no ar, acompanhada */
 export function StationLive() {
   return (
-    <section className="st">
+    <section className="st" data-step="5">
       <Head i={4} />
       <div className="st-body">
         <div className="st-col" data-col="a">
           <div className="st-card st-chat" data-a="card">
             <div className="st-chat-top">
-              <span className="st-avatar">RC</span>
+              <span className="st-avatar">RI</span>
               <div>
-                <b>Recanto da Criança</b>
+                <b>Recanto Interativo</b>
                 <span>
                   <i /> atendente no ar
                 </span>
@@ -317,7 +317,7 @@ export function StationLive() {
 export function StationReport() {
   const top = REPORT.stages[0].value;
   return (
-    <section className="st">
+    <section className="st" data-step="6">
       <Head i={5} />
       <div className="st-body">
         <div className="st-col" data-col="a">
@@ -378,7 +378,7 @@ export function StepLabel({ i }: { i: number }) {
 export function DecisionCard({ i }: { i: number }) {
   const d = DECISIONS[i];
   return (
-    <article className="dc">
+    <article className={`dc dc--${i + 1}`}>
       <span className="dc-n">{d.n}</span>
       <h3>{d.title}</h3>
       <p>{d.note}</p>
