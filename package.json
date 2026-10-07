@@ -1,0 +1,25 @@
+{
+  "name": "fabrica-proximos-passos-apresentacao",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack -p 3079",
+    "build": "next build --webpack",
+    "publicar": "node tools/publicar.mjs"
+  },
+  "dependencies": {
+    "gsap": "3.15.0",
+    "lucide-react": "0.500.0",
+    "next": "16.2.1",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.15",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@types/three": "0.186.0",
+    "typescript": "5.9.3"
+  }
+}
