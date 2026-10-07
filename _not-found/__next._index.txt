@@ -2,4 +2,4 @@
 2:I[7121,[],""]
 3:I[4581,[],""]
 :HL["/fabrica-proximos-passos-apresentacao/_next/static/css/bca154ce2dc61ab3.css","style"]
-0:{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/fabrica-proximos-passos-apresentacao/_next/static/css/bca154ce2dc61ab3.css","precedence":"next"}]],["$","html",null,{"lang":"pt-BR","className":"__variable_91e442 __variable_af8716","children":["$","body",null,{"children":["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"gqK8MTo1_-d-SGobBBV8H"}
+0:{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/fabrica-proximos-passos-apresentacao/_next/static/css/bca154ce2dc61ab3.css","precedence":"next"}]],["$","html",null,{"lang":"pt-BR","className":"__variable_91e442 __variable_af8716","children":["$","body",null,{"children":["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"C-4x742oNM84R3k0uX3fN"}
