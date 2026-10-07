@@ -40,8 +40,8 @@ export const STATIONS: ObjSpec[] = Array.from({ length: STEPS }, (_, i) => ({
 /** centro da cena das três decisões e do fecho */
 export const DECIDE: Vec3 = [16300, 420, 0];
 export const END: Vec3 = [19000, 560, 0];
-/** altura do selo do Recanto no fecho (unidades de mundo) */
-export const BADGE_H = 640;
+/** tamanho da logo do Recanto no fecho (unidades de mundo), sem a moldura branca */
+export const BADGE = { w: 960, h: 464 } as const;
 export const BADGE_AT: Vec3 = [END[0], END[1] + 190, END[2]];
 
 export const OBJECTS: ObjSpec[] = [
@@ -57,7 +57,7 @@ export const OBJECTS: ObjSpec[] = [
   { id: 'd2', pos: [DECIDE[0], DECIDE[1], DECIDE[2] + 60], res: 1.45 },
   { id: 'd3', pos: [DECIDE[0] + 700, DECIDE[1], DECIDE[2] - 120], rot: [0, -13, 0], res: 1.45 },
 
-  // selo do Recanto, nítido por cima das partículas
+  // logo do Recanto numa placa branca, nítida por cima das partículas
   { id: 'badge', pos: BADGE_AT, billboard: true, res: 2 },
 ];
 
@@ -66,7 +66,7 @@ export const RAIL: Vec3[] = [
   [520, -620, 0],
   ...STATIONS.map((s) => [s.pos[0], s.pos[1] - 480, s.pos[2] + 40] as Vec3),
   [DECIDE[0], DECIDE[1] - 420, DECIDE[2]],
-  // termina atrás do selo: o caminho acaba na escola
+  // termina atrás da logo: o caminho acaba na escola
   [BADGE_AT[0], BADGE_AT[1] - 60, BADGE_AT[2] - 90],
 ];
 /** fração do trilho em que cada ponto de controle cai (0..1) */
@@ -94,7 +94,7 @@ export interface FxState {
   reveal: number;
   pAlpha: number;
   bokeh: number;
-  /** 0 = cor do tema; 1 = cada partícula com a cor do pixel do selo */
+  /** 0 = cor do tema; 1 = cada partícula com a cor do pixel da logo */
   tint: number;
   /** o "feito" extrudado da abertura */
   mark: number;

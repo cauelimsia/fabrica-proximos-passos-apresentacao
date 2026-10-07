@@ -140,11 +140,19 @@
   letter-spacing: 0;
   color: var(--sc-yellow);
 }
+/* a logo foi desenhada para fundo branco: entra numa placa, com as cores originais */
 .sc-badge {
+  padding: 40px 52px 44px;
+  border-radius: 42px;
+  background: #fff;
+  box-shadow:
+    0 50px 120px -30px rgba(0, 10, 30, 0.9),
+    0 0 200px -40px rgba(44, 184, 245, 0.7);
+}
+.sc-badge img {
   display: block;
-  width: 543px;
-  height: 640px;
-  filter: drop-shadow(0 40px 70px rgba(0, 20, 50, 0.7));
+  width: 960px;
+  height: 464px;
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -1021,10 +1029,19 @@
   letter-spacing: -0.01em;
   color: var(--sc-ink);
 }
-.sc-brand img {
-  width: 34px;
-  height: 40px;
+.sc-brand-chip {
+  display: grid;
+  place-items: center;
   flex: none;
+  height: 40px;
+  padding: 0 8px;
+  border-radius: 11px;
+  background: #fff;
+}
+.sc-brand-chip img {
+  display: block;
+  width: 59px;
+  height: 32px;
 }
 .sc-brand span {
   white-space: nowrap;

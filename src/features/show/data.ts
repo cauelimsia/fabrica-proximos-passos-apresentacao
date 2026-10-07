@@ -40,7 +40,7 @@ export const STEP_LIST: Step[] = [
 // 01 ---------------------------------------------------------------------------
 export const AGENDA = [
   'Rotina e proposta da escola',
-  'Adaptação e cuidados do dia a dia',
+  'Turmas, turnos e adaptação',
   'Alimentação e saúde',
   'Matrícula, rematrícula e regras',
   'As perguntas que os pais mais fazem',
@@ -59,10 +59,10 @@ export const MATERIAL: Array<{ id: string; title: string; note: string }> = [
 // 03 ---------------------------------------------------------------------------
 export const MODULES = ['Atendimento', 'Funil de matrículas', 'Turmas e vagas', 'Base da escola', 'Documentos', 'Rematrícula', 'Painel da direção'];
 export const CLASSES: Array<{ name: string; shifts: string }> = [
-  { name: 'Berçário', shifts: 'Manhã · Tarde · Integral' },
-  { name: 'Maternal', shifts: 'Manhã · Tarde · Integral' },
-  { name: 'Jardim', shifts: 'Manhã · Tarde' },
+  { name: 'Maternal', shifts: 'Manhã · Tarde' },
   { name: 'Pré', shifts: 'Manhã · Tarde' },
+  { name: 'Fundamental', shifts: 'Manhã · Tarde' },
+  { name: 'Ensino Médio', shifts: 'Manhã' },
 ];
 export const RULES = ['Preço só da tabela cadastrada', 'Vaga só do sistema', 'Exceção sempre com uma pessoa'];
 

@@ -480,15 +480,15 @@ export function buildTimeline({ gsap, root, engine, tall }: BuildArgs) {
   // ================================================================= 10. FECHO
   {
     const t = TIMES.fecho;
-    const FAR = S(shot([END[0], END[1] - 60, 0], 2300, 1700, -10, 4), shot([END[0], END[1] - 300, 0], 1500, 3000, -8, 3));
-    const NEAR = S(shot([END[0], END[1] - 210, 0], 1900, 1700, 0, 1), shot([END[0], END[1] - 430, 0], 1150, 2300, 0, 1));
+    const FAR = S(shot([END[0], END[1] - 60, 0], 2300, 1700, -10, 4), shot([END[0], END[1] - 300, 0], 1900, 3600, -8, 3));
+    const NEAR = S(shot([END[0], END[1] - 210, 0], 1900, 1700, 0, 1), shot([END[0], END[1] - 430, 0], 1400, 2800, 0, 1));
     ['d1', 'd2', 'd3'].forEach((id, i) => tl.to(objs[id], { o: 0, duration: 0.7, ease: 'power2.in' }, t - 1.5 + i * 0.08));
     camTo(t - 1.5, FAR, 3.0);
     camTo(t + 1.6, NEAR, 4.4, 'sine.inOut');
     tl.to(fx, { rail: 1, duration: 2.6, ease: 'power2.inOut' }, t - 1.4);
     tl.to(fx, { grid: 0.35, duration: 2.0 }, t);
 
-    // a poeira do caminho inteiro converge e desenha o selo, cor por cor
+    // a poeira do caminho inteiro converge e desenha a logo, cor por cor
     tl.set(fx, { glowX: BADGE_AT[0], glowY: BADGE_AT[1] }, t - 1.5);
     tl.to(fx, { form: FORMS.badge, duration: 3.6, ease: 'power2.inOut' }, t - 1.2);
     tl.to(fx, { turb: 0.9, duration: 1.0, ease: 'power2.in' }, t - 1.0);
@@ -497,7 +497,7 @@ export function buildTimeline({ gsap, root, engine, tall }: BuildArgs) {
     tl.to(fx, { bokeh: 0.2, duration: 1.4 }, t + 0.4);
     tl.to(fx, { glow: 0.75, duration: 1.8, ease: 'power2.out' }, t + 1.2);
 
-    // o selo de verdade assenta por cima das partículas
+    // a logo de verdade assenta por cima das partículas
     const badge = objs.badge;
     tl.to(badge, { o: 1, duration: 1.1, ease: 'power2.inOut' }, t + 2.5);
     tl.fromTo(badge, { s: 0.94 }, { s: 1, duration: 1.6, ease: 'expo.out' }, t + 2.5);

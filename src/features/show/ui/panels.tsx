@@ -224,7 +224,7 @@ export function StationApprove() {
           <div className="st-card st-test" data-a="card">
             <p className="st-label">Teste antes de ligar</p>
             <div className="st-bubble st-bubble--in" data-a="q">
-              Qual o valor do integral no maternal?
+              Qual a mensalidade do maternal à tarde?
             </div>
             <div className="st-bubble st-bubble--out" data-a="ans">
               <i />

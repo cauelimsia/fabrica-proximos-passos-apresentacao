@@ -1,11 +1,11 @@
 import * as THREE from 'three';
 import { markOutlineCentered, markWidth, pointInPolygon } from './shapes';
-import { BADGE_AT, BADGE_H, END, OBJECTS, RAIL, STATIONS, deg, type CamState, type FxState, type ObjSpec, type ObjState, type Vec3 } from './world';
+import { BADGE, BADGE_AT, END, OBJECTS, RAIL, STATIONS, deg, type CamState, type FxState, type ObjSpec, type ObjState, type Vec3 } from './world';
 
 const FOV = 32;
 const MARK_H = 430;
 
-/** pixels do selo do Recanto: as partículas do fecho nascem deles, cor por cor */
+/** pixels da logo do Recanto: as partículas do fecho nascem deles, cor por cor */
 export interface BadgePixels {
   data: Uint8ClampedArray;
   w: number;
@@ -177,12 +177,15 @@ export function createEngine(opts: EngineOptions) {
       return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
     };
 
-    // pixels opacos do selo, para sortear de onde cada partícula do fecho vem
+    // a logo vem sobre branco: só os pixels com tinta viram partícula
     const solid: number[] = [];
     if (badge) {
-      for (let i = 0; i < badge.w * badge.h; i++) if (badge.data[i * 4 + 3] > 150) solid.push(i);
+      const d = badge.data;
+      for (let i = 0; i < badge.w * badge.h; i++) {
+        if (d[i * 4 + 3] > 150 && !(d[i * 4] > 236 && d[i * 4 + 1] > 236 && d[i * 4 + 2] > 236)) solid.push(i);
+      }
     }
-    const kBadge = badge ? BADGE_H / badge.h : 1;
+    const kBadge = badge ? BADGE.h / badge.h : 1;
     const tmp = new THREE.Vector3();
     const lastStation = STATIONS[STATIONS.length - 1].pos;
     const span = END[0] + 2600;
@@ -246,7 +249,7 @@ export function createEngine(opts: EngineOptions) {
       dust[i3 + 1] = (px / span) * 900 - 300 + (rand() - 0.5) * 3400;
       dust[i3 + 2] = front ? 500 + rand() * 1000 : -3200 + rand() * 2700;
 
-      // selo do Recanto: 82% em cima de um pixel do logo (com a cor dele), o resto vira halo
+      // logo do Recanto: 82% em cima de um pixel com tinta (com a cor dele), o resto vira halo
       let r = 0.36;
       let g = 0.78;
       let b = 1.0;
@@ -260,6 +263,13 @@ export function createEngine(opts: EngineOptions) {
         r = badge!.data[p * 4] / 255;
         g = badge!.data[p * 4 + 1] / 255;
         b = badge!.data[p * 4 + 2] / 255;
+        // tinta escura some no azul-noite: sobe o brilho sem mudar o matiz
+        const lift = Math.min(2.2, 0.92 / Math.max(r, g, b, 0.05));
+        if (lift > 1) {
+          r *= lift;
+          g *= lift;
+          b *= lift;
+        }
       } else {
         const rr = 520 + rand() * 1700;
         const th = rand() * Math.PI * 2;

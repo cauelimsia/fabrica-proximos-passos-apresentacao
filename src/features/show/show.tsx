@@ -11,6 +11,7 @@ import type { BadgePixels } from './engine/engine';
 import { TIMES, TOTAL, buildTimeline } from './timeline';
 import { DecisionCard, StationApprove, StationBuild, StationKick, StationLive, StationMaterial, StationReport, StepLabel } from './ui/panels';
 import recanto from './assets/recanto.png';
+import emblema from './assets/recanto-emblema.png';
 import four from './assets/four-mkt.png';
 
 /** px de rolagem por segundo de filme */
@@ -47,18 +48,18 @@ function Mark({ className }: { className?: string }) {
   );
 }
 
-/** lê os pixels do selo: as partículas do fecho nascem deles */
+/** lê os pixels da logo (reduzida): as partículas do fecho nascem deles */
 async function readBadge(src: string): Promise<BadgePixels | null> {
   try {
     const img = new Image();
     img.src = src;
     await img.decode();
     const c = document.createElement('canvas');
-    c.width = img.naturalWidth;
-    c.height = img.naturalHeight;
+    c.width = 800;
+    c.height = Math.round((800 * img.naturalHeight) / img.naturalWidth);
     const g = c.getContext('2d', { willReadFrequently: true });
     if (!g) return null;
-    g.drawImage(img, 0, 0);
+    g.drawImage(img, 0, 0, c.width, c.height);
     return { data: g.getImageData(0, 0, c.width, c.height).data, w: c.width, h: c.height };
   } catch {
     return null;
@@ -274,8 +275,10 @@ export function Show() {
                 </Obj>
               ))}
               <Obj id="badge">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="sc-badge" src={recanto.src} alt="" width={543} height={640} draggable={false} />
+                <div className="sc-badge">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={recanto.src} alt="" width={960} height={464} draggable={false} />
+                </div>
               </Obj>
             </div>
           </div>
@@ -338,8 +341,10 @@ export function Show() {
 
           <header className="sc-top">
             <span className="sc-brand">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={recanto.src} alt="Recanto da Criança" width={34} height={40} />
+              <span className="sc-brand-chip">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={emblema.src} alt="Recanto Interativo" width={59} height={32} />
+              </span>
               <span>
                 Fábrica de Matrículas <small>· próximos passos</small>
               </span>
